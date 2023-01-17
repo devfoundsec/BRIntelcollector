@@ -7,7 +7,7 @@ from OTXv2 import OTXv2, IndicatorTypes
 import pandas
 
 load_dotenv()
-otx = OTXv2(OTX_KEY)
+otx = OTXv2(environ["OTX_KEY"])
 
 #CONSULTAS PARA PULSES RELACIONADOS AO BRASIL
 brazil = otx.search_pulses("Brazil")
