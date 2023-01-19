@@ -1,3 +1,7 @@
 # BRIntelcollector
 
-este projeto visa coletar alguns dados de threat inteligence no contexto do brasil de diversas fontes de dados estruturados afim de poder formar uma base comum para monitoramento de possíveis ameças em território nacional o projeto ainda está um tanto inscipiente mas a idéia é que estas bases possam servir de fonte de pesquisa sobre ameças brasileiras ou que atuam no Brasil em um futuro próximo
+Pesquisa por indicadores de ameaças nacionais, através de diferentes fontes. Através da ferramenta é possível criar um banco de dados com ameaças nacionais e assim facilitar as pesquisas, identificação de organizações buscar por possíveis ameaças.
+
+Atualmente estamos trabalhando duas fontes de dados: OTX da Alienvault e XFE da IBM
+
+_Projeto ainda não estável_
