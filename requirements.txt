@@ -1,4 +1,4 @@
 python-dotenv
 OTXv2
 pandas
-XForce==0.1
+XForce===0.4
