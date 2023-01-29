@@ -1,3 +1,3 @@
 python-dotenv==0.21
 OTXv2==1.5.12
-XForce==0.5
+XForce==0.7
