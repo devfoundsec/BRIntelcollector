@@ -8,10 +8,14 @@ def allSources(term):
     data += BRIntel.otx.search(term)
     return data
 
-def reduced(term):
+def default(term):
     # Fazer uns loop com todos os valores para entregar
     # os dados reduzidos com url em cada
     # id, name, description, author, date: created and modified ...
     # url, TLP
+    data = []
+    for value in BRIntel.xfe.search(term):
+        data += BRIntel.xfe.show(value)
+
     return False
  
