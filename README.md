@@ -6,7 +6,7 @@ Atualmente estamos trabalhando duas fontes de dados: OTX da Alienvault e XFE da 
 
 ## Instalação e uso
 
-> **Pré requisitos:** para instalar é necessário ter o python na versão 3+ e o pip correspondente. E possuir as chaves de API do [Open Threat Exchange](https://support.rocketcyber.com/hc/en-us/articles/360017914637-Setup-Alienvault-OTX-Threat-Intel-API-Key) e do [IBM X-Force Exchange](https://api.xforce.ibmcloud.com/doc/#/)(Lembre-se da especificidade da chave que [deve ser](/Jul10l1r4/X-force#use): `$chave:$senha` em base64)
+> **Pré requisitos:** para instalar é necessário ter o python na versão 3+ e o pip correspondente. E possuir as chaves de API do [Open Threat Exchange](https://support.rocketcyber.com/hc/en-us/articles/360017914637-Setup-Alienvault-OTX-Threat-Intel-API-Key) e do [IBM X-Force Exchange](https://api.xforce.ibmcloud.com/doc/#/)(Lembre-se da especificidade da chave que [deve ser](https://github.com/Jul10l1r4/X-force#use): `$chave:$senha` em base64)
 
 ```pypi
 pip3 install BRIntel
