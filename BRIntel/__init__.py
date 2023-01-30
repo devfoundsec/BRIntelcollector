@@ -17,5 +17,8 @@ def default(term):
     for value in BRIntel.xfe.search(term):
         data += BRIntel.xfe.show(value)
 
-    return False
+    for value in BRIntel.otx.search(term):
+        data += BRIntel.otx.show(value)
+
+    return data
  
