@@ -15,8 +15,12 @@ def show(pulse):
     data["modified"] = pulse["modified"]
     data["tlp"] = pulse["TLP"]
     data["url"] = f"https://otx.alienvault.com/pulse/{pulse['id']}"
+    data['indicators'] = pulse['indicators']
     return data
 
+def indicators(pulse_id):
+    data['indicators'] = otx.get_pulse_indicators("pulse_id")
+    return data['indicators']
 def details(pulse_id):
     return otx.get_pulse_details(pulse_id)
 
