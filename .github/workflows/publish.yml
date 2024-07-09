@@ -14,11 +14,12 @@ on:
   
 permissions:
   contents: read
+  id-token: write
 
-jobs:
+jobs: 
+   
   deploy:
-    permissions:
-      id-token: write
+    
     runs-on: ubuntu-latest
 
     steps:
