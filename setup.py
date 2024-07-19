@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="BRIntel1",
-    version="0.1.2",
+    version="0.1.3",
     description="Ferramenta de coleta de inteligência em websites brasileiros.",
     author=["Matheus Oliveira matheusoliveiratux4me@gmail.com", "Julio Lira jul10l1r4@disroot.org"],
     author_email=["matheusoliveiratux4me@gmail.com", "jul10l1r4@disroot.org"],
