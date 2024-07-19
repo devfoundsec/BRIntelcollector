@@ -1,8 +1,8 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name="BRIntel1",
-    version="0.1.1",
+    version="0.1.2",
     description="Ferramenta de coleta de inteligência em websites brasileiros.",
     author=["Matheus Oliveira matheusoliveiratux4me@gmail.com", "Julio Lira jul10l1r4@disroot.org"],
     author_email=["matheusoliveiratux4me@gmail.com", "jul10l1r4@disroot.org"],
@@ -28,7 +28,5 @@ package_data={
             'brintelcollector=brintelcollector.main:main'
         ]
     },
-    packages=[
-        "BRIntel",
-    ]
+    packages=find_packages()
 )
