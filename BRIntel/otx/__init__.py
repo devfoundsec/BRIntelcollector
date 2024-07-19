@@ -6,8 +6,8 @@ from OTXv2 import OTXv2
 load_dotenv()
 otx = OTXv2(environ["OTX_KEY"])
 
-def show(pulse):
-    data = {}
+def show(data):
+    
     data["title"] 
     data["description"] 
     data["author"] 
