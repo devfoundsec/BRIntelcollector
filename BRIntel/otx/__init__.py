@@ -17,7 +17,7 @@ def show(pulse):
     data["url"] 
     data["pulse_key"] 
     data["indicator"] 
-    data["indicator_type"] 
+    data["type"] 
     data["report_date"] 
     data["content"] 
     return data
