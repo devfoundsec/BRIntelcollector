@@ -8,19 +8,57 @@ otx = OTXv2(environ["OTX_KEY"])
 
 def show(pulse):
     data = {}
-    data["title"] = pulse["name"]
-    data["description"] = pulse["description"]
-    data["author"] = pulse["author_name"]
-    data["created"] = pulse["created"]
-    data["modified"] = pulse["modified"]
-    data["tlp"] = pulse["TLP"]
-    data["url"] = f"https://otx.alienvault.com/pulse/{pulse['id']}"
-    data['indicators'] = pulse['indicators']
+    data["title"] 
+    data["description"] 
+    data["author"] 
+    data["created"] 
+    data["modified"] 
+    data["tlp"] 
+    data["url"] 
+    data["pulse_key"] 
+    data["indicator"] 
+    data["indicator_type"] 
+    data["report_date"] 
+    data["content"] 
     return data
 
 def indicators(pulse_id):
-    data['indicators'] = otx.get_pulse_indicators("pulse_id")
-    return data['indicators']
+    indicators = []
+    for id in pulse_id:
+        indicators.append(otx.get_pulse_indicators("pulse_id"))
+    merge_result(indicators)
+    return indicators
+    
+
+def merge_result(indicators,data):
+    # Dicionário para armazenar os dados da lista 2
+    dic_indicators = {item["pulse_key"]: item for item in indicators[0]}
+
+    # Nova lista com o resultado do left join
+    result_unido = []
+
+    for item_lista_1 in data:
+        id_item_lista_1 = item_lista_1["id"]
+    
+        # Verifica se a chave 'id' da lista 1 existe na lista 2
+        if id_item_lista_1 in dic_indicators:
+            item_lista_2 = dic_indicators[id_item_lista_1]
+         
+        else:
+            # Se a chave 'id' não existe na lista 2, mantém o item da lista 1
+            novo_item = item_lista_1.copy()
+    
+            # Adiciona o novo item na lista unida
+            result_unido.append(novo_item)
+
+        # Copia o item da lista 1 e adiciona as informações da lista 2
+        novo_item = item_lista_1.copy()
+        novo_item.update(item_lista_2)
+
+
+    data = result_unido
+    return data
+
 def details(pulse_id):
     return otx.get_pulse_details(pulse_id)
 
