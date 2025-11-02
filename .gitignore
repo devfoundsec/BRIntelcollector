@@ -1,4 +1,12 @@
 .env
-__pycache__
-.swp
-.pypirc
+__pycache__/
+*.pyc
+.cache/
+.mypy_cache/
+.pytest_cache/
+*.sqlite
+*.db
+data/
+*.egg-info/
+build/
+dist/

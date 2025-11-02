@@ -1,68 +1,65 @@
 # BRIntelcollector
 
-Pesquisa por indicadores de ameaças nacionais, através de diferentes fontes. Através da ferramenta é possível criar um banco de dados com ameaças nacionais e assim facilitar as pesquisas, identificação de organizações buscar por possíveis ameaças.
+BRIntelcollector é uma plataforma modular para coleta e normalização de Indicadores de Comprometimento (IoCs) a partir de múltiplas fontes de inteligência de ameaças. O projeto fornece uma CLI moderna, API REST local e bibliotecas reutilizáveis para automatizar fluxos de coleta com controle dinâmico de *rate limit* e uso opcional de proxies rotativos.
 
-Atualmente estamos trabalhando duas fontes de dados: OTX da Alienvault e XFE da IBM
+## Recursos principais
 
-## Instalação e uso
+- Estrutura modular (`brintel/core`, `brintel/api_clients`, `brintel/proxy`, `brintel/utils`).
+- Clientes padronizados para AlienVault OTX, IBM X-Force Exchange, VirusTotal, MISP/ThreatFox/AbuseIPDB/Shodan.
+- Normalização de IoCs com deduplicação e armazenamento em SQLite.
+- Rate manager com *backoff* exponencial, leitura de cabeçalhos `Retry-After` e integração com proxy.
+- CLI baseada em Typer com comandos `search`, `collect` e `serve`.
+- API REST em FastAPI (`/v1/search`, `/v1/iocs`, `/v1/health`, `/metrics`).
+- Cache local em SQLite, logging estruturado e suporte a proxies HTTP/SOCKS.
+- Pipeline CI com lint (`black`, `flake8`, `mypy`) e testes (`pytest`).
 
-> **Pré requisitos:** para instalar é necessário ter o python na versão 3+ e o pip correspondente. E possuir as chaves de API do [Open Threat Exchange](https://support.rocketcyber.com/hc/en-us/articles/360017914637-Setup-Alienvault-OTX-Threat-Intel-API-Key) e do [IBM X-Force Exchange](https://api.xforce.ibmcloud.com/doc/#/)(Lembre-se da especificidade da chave que [deve ser](https://github.com/Jul10l1r4/X-force#use): `$chave:$senha` em base64)
-
-```pypi
-pip3 install BRIntel1
-```
-Configure dessa forma seu `.env`. Claro: Substitua `<sua chave e senha>` pelo seu código da API e senha respectivamente.
+## Instalação
 
 ```bash
-echo "OTX_KEY = '<sua chave>'" > .env
-echo "IBM_KEY = '<sua chave + senha em base64>'" >> .env
+pip install -r requirements.txt
+pip install -e .
 ```
-Para usar, basta importar os módulos que serão exemplificados:
-```python
-from BRIntel import allSources, default
 
-# Retornará uma list contendo a busca padrão 
-# das duas fontes, todos os valores em dict
-allSources("Termo de busca")
+Configure as variáveis de ambiente no arquivo `.env` (exemplo):
 
-# Da mesma forma da outra função também retornará
-# lista de valores em dict, mas na estrutura padrão:
-default("Termo de busca")
+```env
+BRINTEL_OTX_API_KEY="sua-chave"
+BRINTEL_PROXY_ENABLED=true
+BRINTEL_RATE_DYNAMIC=true
 ```
-A primeira função retorna de forma absoluta os valores das buscas, já a segunda reduz alguns dados para o trabalho na manipulação.
-Retorno da busca padrão (`BRIntel.defaul`):
-- ["title"]: Título do pulse/relatório
-- ["description"]: Descrição mais detalhada explicando o pulse/relatório
-- ["author"]: Nome do autor do pulse/relatório
-- ["created"]: Data de criação do pulse/relatório
-- ["Modified"]: Data de modificação do pulse/relatório
-- ["tlp"]: Traffic Light Protocol ([TLP](https://www.gov.br/cisc/pt-br/tlp)) de pulse/relatório
-- ["url"]: Url de pulse/relatório
 
-É possível fazer a busca em fontes específicas, exemplo:
-```python
-from BRIntel import xfe, otx
+## Uso da CLI
 
-# O RETORNO SERÁ UMA LIST
-# stix 2.1
-xfe.search("Termo de busca")
-# Formato aberto de pulse OTX
-otx.search("Termo de busca")
+```bash
+# Buscar IoCs em uma fonte específica
+brintel search --source otx --term "example.com"
+
+# Coletar indicadores de todas as fontes desde as últimas 24h
+brintel collect --since 24h
+
+# Servir a API REST local
+brintel serve --host 0.0.0.0 --port 8000
 ```
-Além de busca em fonte específica, também é possível fazer isso de forma que siga o padrão citado à cima
-```python
-from BRIntel import xfe, otx
 
-# Ambas as funções recebem o dict que corresponde a um valor
-# de pulse/relatorio
-xfe.show(xfe_search[x])
-otx.show(otx_search[x])
-```
-Além da busca com o retorno em padrão de exibição, é possível buscar os detalhes de um pulse/relatório específico. Dessa forma:
-```python
-from BRIntel import xfe, otx
+## API REST
 
-# Ambas as funções recebem o ID, uma como string e outra como int, respectivamente
-xfe.details(xfe_search[x]["id"])
-otx.details(otx_search[x]["id"])
+Após executar `brintel serve`, os principais endpoints ficam disponíveis:
+
+- `GET /v1/health` — status do serviço.
+- `GET /v1/search?source=otx&q=dominio` — consulta de IoCs em uma fonte.
+- `GET /v1/iocs?since=2024-01-01T00:00:00` — coleta incremental e retorno em formato JSON.
+- `GET /metrics` — métricas básicas para monitoramento.
+
+## Desenvolvimento
+
+```bash
+# Formatação e lint
+black .
+flake8 .
+mypy brintel
+
+# Testes
+pytest
 ```
+
+Consulte o [CONTRIBUTING.md](CONTRIBUTING.md) para detalhes adicionais e abra *issues* seguindo os templates definidos.
