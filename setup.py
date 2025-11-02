@@ -1,32 +1,33 @@
-from setuptools import setup, find_packages
+from pathlib import Path
+
+from setuptools import find_packages, setup
+
+
+README = Path(__file__).with_name("README.md").read_text(encoding="utf-8")
+
 
 setup(
-    name="BRIntel1",
-    version="0.1.3",
-    description="Ferramenta de coleta de inteligência em websites brasileiros.",
-    author=["Matheus Oliveira matheusoliveiratux4me@gmail.com", "Julio Lira jul10l1r4@disroot.org"],
-    author_email=["matheusoliveiratux4me@gmail.com", "jul10l1r4@disroot.org"],
+    name="brintelcollector",
+    version="0.1.0",
+    description="Threat intelligence collection toolkit",
+    long_description=README,
+    long_description_content_type="text/markdown",
+    author="BRIntelcollector Maintainers",
     url="https://github.com/devfoundsec/BRIntelcollector",
     classifiers=[
-        "Intended Audience :: System Administrators",
+        "Intended Audience :: Information Technology",
         "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
         "Topic :: Security",
-        "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    install_requires=[
-    "requests>=2.26.0",
-    "beautifulsoup4>=4.10.0",
-],
-package_data={
-        'brintelcollector': [
-            'README.md',
-        ],
-    },
-    license="MIT License",
+    python_requires=">=3.10",
+    install_requires=Path("requirements.txt").read_text().splitlines(),
+    packages=find_packages(exclude=("tests", "tests.*")),
+    include_package_data=True,
     entry_points={
-        'console_scripts': [
-            'brintelcollector=brintelcollector.main:main'
+        "console_scripts": [
+            "brintel=brintel.cli:app",
         ]
     },
-    packages=find_packages()
+    license="MIT",
 )

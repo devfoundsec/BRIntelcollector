@@ -1,3 +1,12 @@
-python-dotenv==0.21
+black==23.12.1
+fastapi==0.110.0
+flake8==6.1.0
+httpx==0.26.0
+mypy==1.8.0
 OTXv2==1.5.12
+pydantic==1.10.15
+pytest==7.4.4
+python-dotenv==0.21.0
+Typer==0.9.0
+uvicorn==0.23.2
 XForce==0.8
