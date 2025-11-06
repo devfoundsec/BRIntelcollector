@@ -1,12 +1,23 @@
-black==23.12.1
+# Core dependencies
 fastapi==0.110.0
-flake8==6.1.0
 httpx==0.26.0
-mypy==1.8.0
-OTXv2==1.5.12
 pydantic==1.10.15
-pytest==7.4.4
 python-dotenv==0.21.0
 Typer==0.9.0
 uvicorn==0.23.2
+
+# Threat Intelligence APIs
+OTXv2==1.5.12
 XForce==0.8
+
+# Development dependencies
+black==23.12.1
+flake8==6.1.0
+mypy==1.8.0
+pytest==7.4.4
+pytest-asyncio==0.21.1
+pytest-cov==4.1.0
+
+# Additional utilities
+aiofiles==23.2.1
+python-multipart==0.0.6
